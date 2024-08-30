@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Express session
 app.use(session({
-    secret: 'secret',
+    secret: process.env.SESSION_SECRET || 'secret',
     resave: true,
     saveUninitialized: true
 }));
@@ -45,6 +45,5 @@ app.use('/countdowns', require('./routes/countdowns'));
 // Static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+// Serverless function export
+module.exports = app;
