@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Dashboard</h1>
+        <div class="countdown-list">
+            <h2>Your Countdowns</h2>
+            <% if (countdowns.length > 0) { %>
+                <ul>
+                    <% countdowns.forEach(function(countdown) { %>
+                        <li>
+                            <h3><%= countdown.name %></h3>
+                            <p>Ends on: <%= countdown.date %></p>
+                            <form action="/countdowns/edit/<%= countdown.id %>" method="POST">
+                                <input type="text" name="name" value="<%= countdown.name %>" required>
+                                <input type="date" name="date" value="<%= countdown.date %>" required>
+                                <button type="submit" class="btn">Edit</button>
+                            </form>
+                            <a href="/countdowns/delete/<%= countdown.id %>" class="btn danger">Delete</a>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } else { %>
+                <p>No countdowns found. <a href="/countdowns/add">Add a new one.</a></p>
+            <% } %>
+        </div>
+        <a href="/countdowns/add" class="btn">Add New Countdown</a>
+        <a href="/users/logout" class="btn">Logout</a>
+    </div>
+</body>
+</html>
